@@ -33,5 +33,17 @@
   var startBtn = document.getElementById("audio-start"); var stopBtn = document.getElementById("audio-stop");
   if (startBtn) startBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.startField(); });
   if (stopBtn) stopBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.stopAll(); });
+  var blood = document.getElementById("audio-bloodline"); var diagBtn = document.getElementById("audio-diag-btn"); var panic = document.getElementById("audio-panic");
+  if (blood) blood.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.createBloodlineSession(); });
+  if (diagBtn) diagBtn.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.runHardwareSelfTest(); });
+  if (panic) panic.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.emergencyStop(); });
+  document.querySelectorAll("[data-scene]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var name = btn.getAttribute("data-scene");
+      if (name === "STACK" && window.CHIROMBE_AUDIO_TONAL) CHIROMBE_AUDIO_TONAL.playHarmonicStack(77, 5);
+      else if (name === "SWEEP" && window.CHIROMBE_AUDIO_TONAL) CHIROMBE_AUDIO_TONAL.playSweep(77, 99, 2400);
+      else if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.playScene(name);
+    });
+  });
   show("command");
 })();
