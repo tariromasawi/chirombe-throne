@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#020307"/>
+  <title>CHIROMBE THRONE · 77-99-33</title>
+  <link rel="stylesheet" href="css/throne.css"/>
+</head>
+<body>
+<canvas id="matrix" aria-hidden="true"></canvas>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="seal">Z</div>
+      <div>
+        <div class="eyebrow">Mwari ndi Mwari · CHIROMBE-THRONE 3.0</div>
+        <h1>House Command Matrix</h1>
+      </div>
+    </div>
+    <div class="pills">
+      <div class="pill">CORE <b>ONLINE</b></div>
+      <div class="pill">MATRIX <b id="stat-matrix">77-99-33</b></div>
+      <div class="pill">COVER <b>ARMED</b></div>
+      <div class="pill">AUDIO <b id="audio-state">STANDBY</b></div>
+    </div>
+  </header>
+  <div class="layout">
+    <nav>
+      <button class="active" data-view="command">Command Centre</button>
+      <button data-view="bloodline">Bloodline Circle</button>
+      <button data-view="audio">Audio / Liturgy</button>
+      <button data-view="engines">Engines</button>
+      <button data-view="inspect">Inspect / Archive</button>
+    </nav>
+    <main class="stage">
+      <section id="view-command">
+        <h2>Command Centre</h2>
+        <p class="muted">Single-document frontend. No glued indexes. Protection is computational cover for the House of Masawi — not a physical guarantee.</p>
+        <div class="grid">
+          <div class="stat"><span>PROTECTED</span><strong id="stat-family">0</strong></div>
+          <div class="stat"><span>NODES</span><strong id="stat-nodes">0</strong></div>
+          <div class="stat"><span>WORKERS</span><strong id="stat-workers">0</strong></div>
+          <div class="stat"><span>RESILIENCE</span><strong id="stat-resilience">77</strong></div>
+        </div>
+        <div class="row">
+          <button class="act primary" data-cmd="activate system">Activate System</button>
+          <button class="act primary" data-cmd="protect family">Run Protection Cycle</button>
+          <button class="act" data-cmd="show lineage">Show Lineage</button>
+          <button class="act" data-cmd="export state">Export State</button>
+          <button class="act" data-cmd="selftest">Self Test</button>
+        </div>
+        <div class="log" id="live-log"></div>
+      </section>
+      <section id="view-bloodline" hidden>
+        <h2>Bloodline Circle</h2>
+        <p class="muted">Direct line, heirs, royal siblings, and remembered spirits. Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
+        <div class="family" id="family-list"></div>
+      </section>
+      <section id="view-audio" hidden>
+        <h2>Audio Engine</h2>
+        <p class="muted">Web Audio field tuned to 77 / 99 / 33. Tap Start Field after the browser gesture lock. Acoustic cover only.</p>
+        <div class="row">
+          <button class="act primary" id="audio-start">Start Field</button>
+          <button class="act" id="audio-stop">Silence</button>
+          <button class="act" data-cmd="protect family">Cover Pulse</button>
+        </div>
+        <div class="stat"><span>MATRIX HZ</span><strong id="audio-hz">77 / 99 / 33</strong></div>
+        <div class="vu"><i id="audio-vu"></i></div>
+      </section>
+      <section id="view-engines" hidden>
+        <h2>Engines</h2>
+        <p class="muted">Live modules: command bus, family cover, non-recursive snapshot, watchdog stats, matrix field, audio field, local state. The original 728 KB chirombe engine file stays preserved and is not executed here.</p>
+        <div class="grid">
+          <div class="stat"><span>BUS</span><strong>READY</strong></div>
+          <div class="stat"><span>PROTECT</span><strong>BOUND</strong></div>
+          <div class="stat"><span>KERNEL FILE</span><strong>HELD</strong></div>
+          <div class="stat"><span>REWRITE</span><strong>BLOCKED</strong></div>
+        </div>
+      </section>
+      <section id="view-inspect" hidden>
+        <h2>Inspect</h2>
+        <p class="muted">Original system left untouched. This repository is the working duplicate.</p>
+        <p class="muted">Legacy: https://tariromasawi.github.io/chirombe/<br/>Source: https://github.com/tariromasawi/chirombe<br/>Engine artifact: https://github.com/tariromasawi/chirombe/blob/main/chirombe%20engine</p>
+      </section>
+    </main>
+    <aside class="side">
+      <div class="ringbox">
+        <div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div>
+        <div class="core">77</div>
+      </div>
+      <div class="stat"><span>UPTIME</span><strong id="stat-uptime">0s</strong></div>
+      <p class="muted">Mudzimu Unoyera. Peace, protection, wisdom, unity and strength remain with this protected circle.</p>
+    </aside>
+  </div>
+  <footer class="dock"><span>CHIROMBE-THRONE · computational cover for the bloodline</span><span>777 · 999 · 333</span></footer>
+</div>
+<script src="js/throne-core.js"></script>
+<script src="js/throne-audio.js"></script>
+<script src="js/throne-matrix.js"></script>
+<script src="js/throne-ui.js"></script>
+</body>
+</html>
