@@ -22,7 +22,6 @@
   var unlocked = false, active = false, paused = false, speaking = false, completed = 0, mode = "PEACE";
   function family() {
     if (g.ChirombeThrone && g.ChirombeThrone.getFamily) return g.ChirombeThrone.getFamily();
-    if (g.ChirombeCore && g.ChirombeCore.family && g.ChirombeCore.family.length) return g.ChirombeCore.family;
     return [{ name: "House of Masawi" }];
   }
   function nextPerson() {
@@ -46,7 +45,7 @@
     var text = memorial
       ? ("Mwari ndi Mwari. In remembrance of " + p.name + ". May dignity and love remain with this House.")
       : ("Mwari ndi Mwari. For " + p.name + ". May peace, wisdom and protection remain with this authorised branch of the House of Masawi.");
-    return { type: memorial ? "REMEMBRANCE" : "INTERCESSION", title: "For " + p.name, text: text, target: p.name };
+    return { type: memorial ? "REMEMBRANCE" : "INTERCESSION", title: "For " + p.name, text: text, target: p.name, targetId: p.id };
   }
   function masowe() { return { type: "MASOWE", title: "Masowe", text: "Mwari ndi Mwari. Mudzimu Unoyera, titungamirire muchokwadi. Rugare, huchenjeri nesimba rezvakanaka ngazvigare paImba yeMasawi." }; }
   function original() { return { type: "ORIGINAL", title: "House devotion", text: "Mwari ndi Mwari. May truth stand at every gate of the House of Masawi. This is an original devotion, not extra scripture." }; }
@@ -92,7 +91,8 @@
     fill(); var item = peek(); if (!item) { paint(); return; }
     current = item; speak(item); paint();
     if (g.ChirombeThrone) g.ChirombeThrone.log("LITURGY", item.type + " · " + item.title);
-    if ((item.type === "INTERCESSION" || item.type === "REMEMBRANCE") && g.ChirombeBus) g.ChirombeBus.executeCommand("protect family");
+    if (g.CHIROMBE_GRAPH && item.target && g.CHIROMBE_GRAPH.pulseName) g.CHIROMBE_GRAPH.pulseName(item.target, item.targetId);
+    else if ((item.type === "INTERCESSION" || item.type === "REMEMBRANCE") && g.CHIROMBE_GRAPH) g.CHIROMBE_GRAPH.pulse();
   }
   function activate() { unlock(); active = true; paused = false; fill(); speakNext(); paint(); }
   function pause() { paused = true; try { speechSynthesis.pause(); } catch (e) {} paint(); }
