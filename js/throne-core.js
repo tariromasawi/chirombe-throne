@@ -4,7 +4,10 @@
   g.__THRONE_CORE__ = true;
   var KEY = "CHIROMBE_THRONE_V3";
   var MATRIX = { a: 77, b: 99, c: 33, seal: "77-99-33", deep: "777-999-333" };
-  var cmds = {}, family = [], nodes = new Map(), audit = [];
+  var cmds = {};
+  var family = [];
+  var nodes = new Map();
+  var audit = [];
   var workers = { active: 0, tasks: 0, done: 0, err: 0 };
   var started = Date.now();
   function now() { return new Date().toISOString(); }
@@ -89,7 +92,9 @@
   });
   g.ChirombeBus = { registerCommand: registerCommand, executeCommand: executeCommand, listCommands: function () { return Object.keys(cmds); } };
   g.ZionProtect = { snapshot: snapshot, reinforce: reinforce, nodes: nodes };
-  g.ChirombeThrone = { MATRIX: MATRIX, log: log, loadFamily: wireFamily, renderStats: renderStats, workers: workers, save: save, load: load };
+  g.ChirombeThrone = { MATRIX: MATRIX, log: log, loadFamily: wireFamily, getFamily: function () { return family.slice(); }, renderStats: renderStats, workers: workers, save: save, load: load };
+  g.ChirombeCore = g.ChirombeCore || {};
+  Object.defineProperty(g.ChirombeCore, "family", { get: function () { return family; }, configurable: true });
   fetch("./data/family.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     if (d && d.members) wireFamily(d.members);
     executeCommand("activate system");
