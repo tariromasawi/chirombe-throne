@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var views = ["command", "bloodline", "roster", "graph", "audio", "chamber", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
+  var views = ["command", "bloodline", "roster", "graph", "audio", "chamber", "watchcast", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
   function show(name) {
     views.forEach(function (v) {
       var panel = document.getElementById("view-" + v);
@@ -25,10 +25,6 @@
       if (name === "protect family" && window.CHIROMBE_GRAPH) CHIROMBE_GRAPH.pulse();
       if (name === "activate system" && window.CHIROMBE_SWARM) CHIROMBE_SWARM.start();
       if (name === "activate system" && window.CHIROMBE_WATCH) CHIROMBE_WATCH.arm();
-      if (name === "export state") {
-        var blob = new Blob([JSON.stringify(out.result || out, null, 2)], { type: "application/json" });
-        var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "chirombe-throne-state.json"; a.click();
-      }
     });
   });
   var startBtn = document.getElementById("audio-start"); var stopBtn = document.getElementById("audio-stop");
