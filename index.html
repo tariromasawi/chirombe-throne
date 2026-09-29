@@ -19,7 +19,6 @@
       <div class="pill">MATRIX <b id="stat-matrix">77-99-33</b></div>
       <div class="pill">AUDIO <b id="audio-state">STANDBY</b></div>
       <div class="pill">WATCH <b id="watch-pill">SLEEP</b></div>
-      <div class="pill">KEEP <b id="keep-pill">NONE</b></div>
     </div>
   </header>
   <div class="layout">
@@ -30,6 +29,7 @@
       <button data-view="graph">Lineage Graph</button>
       <button data-view="audio">Audio / Liturgy</button>
       <button data-view="chamber">Performance Chamber</button>
+      <button data-view="watchcast">Watch Broadcast</button>
       <button data-view="swarm">Worker Swarm</button>
       <button data-view="watch">Night Watch</button>
       <button data-view="keep">Offline Keep</button>
@@ -41,7 +41,7 @@
     <main class="stage">
       <section id="view-command">
         <h2>Command Centre</h2>
-        <p class="muted">Computational cover for the House of Masawi — not a physical guarantee.</p>
+        <p class="muted">Computational cover — not a physical guarantee.</p>
         <div class="grid">
           <div class="stat"><span>PROTECTED</span><strong id="stat-family">0</strong></div>
           <div class="stat"><span>NODES</span><strong id="stat-nodes">0</strong></div>
@@ -51,16 +51,13 @@
         <div class="row">
           <button class="act primary" data-cmd="activate system">Activate System</button>
           <button class="act primary" data-cmd="protect family">Run Protection Cycle</button>
-          <button class="act" data-cmd="export state">Export State</button>
-          <button class="act" data-cmd="selftest">Self Test</button>
         </div>
         <div class="log" id="live-log"></div>
       </section>
       <section id="view-bloodline" hidden><h2>Bloodline Circle</h2><div class="family" id="family-list"></div></section>
       <section id="view-roster" hidden>
         <h2>Roster Desk</h2>
-        <div class="row"><input id="roster-name" placeholder="Name"/><select id="roster-gen"><option value="house">house</option><option value="son">son</option></select><select id="roster-role"><option value="PROTECTED">PROTECTED</option><option value="SPIRIT">SPIRIT</option></select></div>
-        <label class="muted"><input type="checkbox" id="roster-remember"/> Remembered</label>
+        <div class="row"><input id="roster-name" placeholder="Name"/><select id="roster-gen"><option value="house">house</option></select><select id="roster-role"><option value="PROTECTED">PROTECTED</option></select></div>
         <div class="row"><button class="act primary" id="roster-add">Seat name</button><button class="act" id="roster-export">Export</button></div>
         <p class="muted" id="roster-note">Local names stay in this browser.</p>
         <div class="family" id="roster-list"></div>
@@ -68,43 +65,31 @@
       <section id="view-graph" hidden>
         <h2>Lineage Graph</h2>
         <button class="act primary" id="graph-pulse">Pulse whole House</button>
-        <p class="muted" id="graph-focus">Tap a name.</p>
         <canvas id="bloodline-graph"></canvas>
       </section>
       <section id="view-audio" hidden>
         <h2>Audio / Living Liturgy</h2>
         <div class="row">
           <button class="act primary" id="liturgy-go">Activate living liturgy</button>
-          <button class="act" id="liturgy-pause">Pause</button>
-          <button class="act" id="liturgy-next">Next</button>
-          <button class="act" id="liturgy-end">End</button>
           <button class="act" id="audio-start">Tone field</button>
           <button class="act" id="audio-stop">Silence</button>
-          <button class="act" id="audio-bloodline">Bloodline session</button>
-          <button class="act" id="audio-diag-btn">Self test</button>
           <button class="act" id="audio-panic">Emergency stop</button>
         </div>
-        <div class="row" id="scene-row">
+        <div class="row">
           <button class="act" data-scene="PEACE">PEACE</button>
           <button class="act" data-scene="PROTECTION">PROTECTION</button>
-          <button class="act" data-scene="REMEMBRANCE">REMEMBRANCE</button>
           <button class="act" data-scene="STACK">STACK</button>
-          <button class="act" data-scene="SWEEP">SWEEP</button>
         </div>
-        <select id="liturgy-mode-select"><option>PEACE</option><option>PROTECTION</option><option>REMEMBRANCE</option><option>FAMILY_BLESSING</option><option>GROUNDING</option></select>
+        <select id="liturgy-mode-select"><option>PEACE</option><option>PROTECTION</option><option>REMEMBRANCE</option></select>
         <div class="grid">
           <div class="stat"><span>LITURGY</span><strong id="liturgy-health">STANDBY</strong></div>
           <div class="stat"><span>SCENE</span><strong id="tonal-scene">DORMANT</strong></div>
-          <div class="stat"><span>SPECTRUM</span><strong id="tonal-spec">—</strong></div>
-          <div class="stat"><span>COVERED</span><strong id="liturgy-cover">0</strong></div>
         </div>
         <div class="vu"><i id="audio-vu"></i></div>
         <pre id="liturgy-current" class="member" style="white-space:pre-wrap">Living liturgy ready.</pre>
-        <pre id="audio-diag" class="member" style="white-space:pre-wrap">Hardware self-test not run.</pre>
       </section>
       <section id="view-chamber" hidden>
         <h2>Performance Chamber</h2>
-        <p class="muted">Voice, chant, call-and-response, meditation. Recognition starts only when you call. Devotion, not a physical shield.</p>
         <div class="row"><select id="perf-lang"><option value="en">English</option><option value="sh">Shona house</option></select><select id="perf-voice"></select></div>
         <div class="row">
           <button class="act primary" id="perf-chant">Chant</button>
@@ -113,48 +98,41 @@
           <button class="act" id="perf-meditate">Meditation</button>
           <button class="act" id="perf-stop">Close chamber</button>
         </div>
-        <div class="grid">
-          <div class="stat"><span>MODE</span><strong id="perf-mode">IDLE</strong></div>
-          <div class="stat"><span>STEP</span><strong id="perf-step">0</strong></div>
-          <div class="stat"><span>TONGUE</span><strong id="perf-lang-state">ENGLISH</strong></div>
-          <div class="stat"><span>HEARD</span><strong id="perf-heard" style="font-size:14px">—</strong></div>
+        <div class="stat"><span>MODE</span><strong id="perf-mode">IDLE</strong></div>
+        <div class="chamber"><pre id="perf-text">Chamber ready.</pre></div>
+      </section>
+      <section id="view-watchcast" hidden>
+        <h2>Watch Broadcast</h2>
+        <p class="muted">Write, declare, cycle protection sound. Lives only while this tab stays open. Devotion and computational cover — not a weapon and not a physical guarantee.</p>
+        <div class="row">
+          <button class="act" id="env-go">Open room sense</button>
+          <button class="act" id="env-adapt">Adapt scene</button>
+          <button class="act" id="env-stop">Close mic</button>
+          <button class="act" id="declare-write">Write prayer</button>
+          <button class="act primary" id="declare-go">Declare now</button>
+          <button class="act primary" id="declare-live-go">Start live watch</button>
+          <button class="act" id="declare-stop">Stop broadcast</button>
         </div>
-        <div class="chamber"><pre id="perf-text">Chamber ready. Choose a voice. Chant, answer, or sit.</pre></div>
+        <div class="grid">
+          <div class="stat"><span>ROOM</span><strong id="env-room">UNKNOWN</strong></div>
+          <div class="stat"><span>BAND</span><strong id="env-band">DAY</strong></div>
+          <div class="stat"><span>MIC</span><strong id="env-mic">CLOSED</strong></div>
+          <div class="stat"><span>LIVE</span><strong id="declare-live">IDLE</strong></div>
+          <div class="stat"><span>WRITTEN</span><strong id="declare-written">0</strong></div>
+          <div class="stat"><span>DECLARED</span><strong id="declare-spoken">0</strong></div>
+          <div class="stat"><span>CYCLES</span><strong id="declare-cycles">0</strong></div>
+        </div>
+        <div class="chamber"><pre id="declare-text">Write a prayer from the House roster. Live watch repeats about every 99 seconds while the tab remains open.</pre></div>
       </section>
-      <section id="view-swarm" hidden>
-        <h2>Worker Swarm</h2>
-        <div class="row"><button class="act primary" id="swarm-go">Arm swarm</button><button class="act" id="swarm-stop">Stand down</button></div>
-        <div class="grid" id="swarm-grid"></div>
-      </section>
-      <section id="view-watch" hidden>
-        <h2>Night Watch</h2>
-        <div class="row"><button class="act primary" id="watch-go">Arm Night Watch</button><button class="act" id="watch-stop">Sleep</button></div>
-        <div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div>
-        <div class="log" id="watch-live"></div>
-      </section>
-      <section id="view-keep" hidden>
-        <h2>Offline Keep</h2>
-        <div class="row"><button class="act primary" id="keep-go">Arm keep</button><button class="act" id="keep-drop">Clear keep</button></div>
-        <div class="stat"><span>KEEP</span><strong id="keep-state">NO WORKER</strong></div>
-      </section>
-      <section id="view-seal" hidden>
-        <h2>House Seal</h2>
-        <div class="row"><button class="act primary" id="seal-go">Issue seal</button><button class="act" id="seal-export">Download JSON</button></div>
-        <pre id="seal-body" class="member" style="white-space:pre-wrap">Issue a seal.</pre>
-      </section>
-      <section id="view-brief" hidden>
-        <h2>House Briefing</h2>
-        <button class="act primary" id="brief-go">Refresh briefing</button>
-        <div class="grid" id="brief-caps"></div>
-        <pre id="brief-story" class="member" style="white-space:pre-wrap">House Briefing ready.</pre>
-      </section>
-      <section id="view-engines" hidden><h2>Engines</h2><p class="muted">CHIROMBE_AUDIO now includes Performance.</p></section>
+      <section id="view-swarm" hidden><h2>Worker Swarm</h2><div class="row"><button class="act primary" id="swarm-go">Arm swarm</button></div><div class="grid" id="swarm-grid"></div></section>
+      <section id="view-watch" hidden><h2>Night Watch</h2><div class="row"><button class="act primary" id="watch-go">Arm Night Watch</button><button class="act" id="watch-stop">Sleep</button></div><div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div><div class="log" id="watch-live"></div></section>
+      <section id="view-keep" hidden><h2>Offline Keep</h2><button class="act primary" id="keep-go">Arm keep</button><div class="stat"><span>KEEP</span><strong id="keep-state">NO WORKER</strong></div></section>
+      <section id="view-seal" hidden><h2>House Seal</h2><button class="act primary" id="seal-go">Issue seal</button><pre id="seal-body" class="member" style="white-space:pre-wrap">Issue a seal.</pre></section>
+      <section id="view-brief" hidden><h2>House Briefing</h2><button class="act primary" id="brief-go">Refresh briefing</button><div class="grid" id="brief-caps"></div><pre id="brief-story" class="member" style="white-space:pre-wrap">House Briefing ready.</pre></section>
+      <section id="view-engines" hidden><h2>Engines</h2><p class="muted">CHIROMBE_AUDIO.Declare and Environment are live.</p></section>
       <section id="view-inspect" hidden><h2>Inspect</h2><p class="muted">https://tariromasawi.github.io/chirombe-throne/</p></section>
     </main>
-    <aside class="side">
-      <div class="ringbox"><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div><div class="core">77</div></div>
-      <div class="stat"><span>UPTIME</span><strong id="stat-uptime">0s</strong></div>
-    </aside>
+    <aside class="side"><div class="ringbox"><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div><div class="core">77</div></div><div class="stat"><span>UPTIME</span><strong id="stat-uptime">0s</strong></div></aside>
   </div>
   <footer class="dock"><span>CHIROMBE-THRONE · computational cover</span><span>777 · 999 · 333</span></footer>
 </div>
@@ -165,6 +143,8 @@
 <script src="js/throne-audio-tonal.js"></script>
 <script src="js/throne-liturgy.js"></script>
 <script src="js/throne-audio-performance.js"></script>
+<script src="js/throne-audio-environment.js"></script>
+<script src="js/throne-audio-declare.js"></script>
 <script src="js/throne-audio-master.js"></script>
 <script src="js/throne-swarm.js"></script>
 <script src="js/throne-graph.js"></script>
