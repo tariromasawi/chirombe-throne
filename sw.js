@@ -1,4 +1,4 @@
-const KEEP = "chirombe-throne-keep-v7";
+const KEEP = "chirombe-throne-keep-v8";
 const ASSETS = [
   "./",
   "./index.html",
@@ -14,6 +14,7 @@ const ASSETS = [
   "./js/throne-graph.js",
   "./js/throne-watch.js",
   "./js/throne-keep.js",
+  "./js/throne-seal.js",
   "./js/throne-matrix.js",
   "./js/throne-ui.js"
 ];
