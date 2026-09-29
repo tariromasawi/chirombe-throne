@@ -39,6 +39,7 @@
       <button data-view="watch">Night Watch</button>
       <button data-view="keep">Offline Keep</button>
       <button data-view="seal">House Seal</button>
+      <button data-view="brief">House Briefing</button>
       <button data-view="engines">Engines</button>
       <button data-view="inspect">Inspect / Archive</button>
     </nav>
@@ -107,7 +108,6 @@
       </section>
       <section id="view-swarm" hidden>
         <h2>Worker Swarm</h2>
-        <p class="muted">Twelve named workers as in-page timers.</p>
         <div class="row">
           <button class="act primary" id="swarm-go">Arm swarm</button>
           <button class="act" id="swarm-pulse">Pulse once</button>
@@ -119,7 +119,6 @@
       </section>
       <section id="view-watch" hidden>
         <h2>Night Watch</h2>
-        <p class="muted">Quiet cadence while this tab stays open. 33 / 77 / 99 seconds.</p>
         <div class="row">
           <button class="act primary" id="watch-go">Arm Night Watch</button>
           <button class="act" id="watch-stop">Sleep</button>
@@ -138,7 +137,6 @@
       </section>
       <section id="view-keep" hidden>
         <h2>Offline Keep</h2>
-        <p class="muted">Local browser cache of the House page. Not a cloud vault.</p>
         <div class="row">
           <button class="act primary" id="keep-go">Arm keep</button>
           <button class="act" id="keep-drop">Clear keep</button>
@@ -153,7 +151,6 @@
       </section>
       <section id="view-seal" hidden>
         <h2>House Seal</h2>
-        <p class="muted">One snapshot of roster, watch, liturgy and cover. Marked 77-99-33. Computational record — not a legal signature and not a physical guarantee.</p>
         <div class="row">
           <button class="act primary" id="seal-go">Issue seal</button>
           <button class="act" id="seal-export">Download JSON</button>
@@ -168,13 +165,30 @@
         <div class="stat"><span>MARK</span><strong id="seal-mark" style="font-size:13px;word-break:break-all">—</strong></div>
         <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:160px">Issue a seal to freeze this moment of the House.</pre>
       </section>
+      <section id="view-brief" hidden>
+        <h2>House Briefing</h2>
+        <p class="muted">The Throne explaining itself. Eight phases of the working copy, with live probes. Original Chirombe remains the archive.</p>
+        <div class="row"><button class="act primary" id="brief-go">Refresh briefing</button></div>
+        <div class="grid">
+          <div class="stat"><span>CAPABILITIES</span><strong id="brief-pass">0 / 8</strong></div>
+          <div class="stat"><span>HOUSE</span><strong id="brief-family">0</strong></div>
+          <div class="stat"><span>SPOKEN</span><strong id="brief-liturgy">0</strong></div>
+          <div class="stat"><span>SWARM</span><strong id="brief-swarm">0</strong></div>
+          <div class="stat"><span>WATCH</span><strong id="brief-watch">SLEEP</strong></div>
+          <div class="stat"><span>GRAPH</span><strong id="brief-graph">0</strong></div>
+          <div class="stat"><span>KEEP</span><strong id="brief-keep">NONE</strong></div>
+          <div class="stat"><span>SEAL</span><strong id="brief-seal">NONE</strong></div>
+        </div>
+        <div class="grid" id="brief-caps"></div>
+        <pre id="brief-story" class="member" style="white-space:pre-wrap;min-height:180px">House Briefing ready.</pre>
+      </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Bus, liturgy, swarm, graph, night watch, offline keep, house seal. Original engine file is held, not executed.</p>
+        <p class="muted">Working modules on this copy. Original engine file is held, not executed.</p>
       </section>
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
-        <p class="muted">Working copy: https://github.com/tariromasawi/chirombe-throne</p>
+        <p class="muted">Archive: https://github.com/tariromasawi/chirombe · Live: https://tariromasawi.github.io/chirombe-throne/</p>
       </section>
     </main>
     <aside class="side">
@@ -193,6 +207,7 @@
 <script src="js/throne-watch.js"></script>
 <script src="js/throne-keep.js"></script>
 <script src="js/throne-seal.js"></script>
+<script src="js/throne-brief.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
