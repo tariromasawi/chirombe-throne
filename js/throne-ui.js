@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var views = ["command", "bloodline", "roster", "graph", "audio", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
+  var views = ["command", "bloodline", "roster", "graph", "audio", "chamber", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
   function show(name) {
     views.forEach(function (v) {
       var panel = document.getElementById("view-" + v);
@@ -11,6 +11,7 @@
     if (name === "graph" && window.CHIROMBE_GRAPH) CHIROMBE_GRAPH.rebuild();
     if (name === "brief" && window.CHIROMBE_BRIEF) CHIROMBE_BRIEF.paint();
     if (name === "roster" && window.CHIROMBE_ROSTER) CHIROMBE_ROSTER.paint();
+    if (name === "chamber" && window.CHIROMBE_AUDIO_PERFORMANCE) CHIROMBE_AUDIO_PERFORMANCE.refreshVoices();
   }
   document.querySelectorAll("[data-view]").forEach(function (btn) {
     btn.addEventListener("click", function () { show(btn.getAttribute("data-view")); });
