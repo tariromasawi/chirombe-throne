@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var views = ["command", "bloodline", "graph", "audio", "swarm", "watch", "keep", "engines", "inspect"];
+  var views = ["command", "bloodline", "graph", "audio", "swarm", "watch", "keep", "seal", "engines", "inspect"];
   function show(name) {
     views.forEach(function (v) {
       var panel = document.getElementById("view-" + v);
