@@ -58,22 +58,42 @@
         <div class="family" id="family-list"></div>
       </section>
       <section id="view-audio" hidden>
-        <h2>Audio Engine</h2>
-        <p class="muted">Web Audio field tuned to 77 / 99 / 33. Tap Start Field after the browser gesture lock. Acoustic cover only.</p>
+        <h2>Audio / Living Liturgy</h2>
+        <p class="muted">One tap unlocks speech and the 77 / 99 / 33 field. Each prayer finishes before the next starts. Public-domain KJV excerpts stay marked as scripture. House lines are original devotionals. Acoustic and spoken cover only.</p>
         <div class="row">
-          <button class="act primary" id="audio-start">Start Field</button>
-          <button class="act" id="audio-stop">Silence</button>
-          <button class="act" data-cmd="protect family">Cover Pulse</button>
+          <button class="act primary" id="liturgy-go">Activate living liturgy</button>
+          <button class="act" id="liturgy-pause">Pause / Resume</button>
+          <button class="act" id="liturgy-next">Next</button>
+          <button class="act" id="liturgy-end">End</button>
+          <button class="act" id="audio-start">Tone field only</button>
+          <button class="act" id="audio-stop">Silence tones</button>
         </div>
+        <div class="row">
+          <select id="liturgy-mode-select">
+            <option value="PEACE">PEACE</option>
+            <option value="PROTECTION">PROTECTION</option>
+            <option value="REMEMBRANCE">REMEMBRANCE</option>
+            <option value="FAMILY_BLESSING">FAMILY BLESSING</option>
+            <option value="GROUNDING">GROUNDING</option>
+          </select>
+        </div>
+        <div class="grid">
+          <div class="stat"><span>LITURGY</span><strong id="liturgy-health">STANDBY</strong></div>
+          <div class="stat"><span>QUEUE</span><strong id="liturgy-queue">0</strong></div>
+          <div class="stat"><span>SPOKEN</span><strong id="liturgy-done">0</strong></div>
+          <div class="stat"><span>VOICE</span><strong id="liturgy-voice">LOCKED</strong></div>
+        </div>
+        <div class="stat"><span>MODE</span><strong id="liturgy-mode">PEACE · 77 Hz</strong></div>
         <div class="stat"><span>MATRIX HZ</span><strong id="audio-hz">77 / 99 / 33</strong></div>
         <div class="vu"><i id="audio-vu"></i></div>
+        <pre id="liturgy-current" class="member" style="white-space:pre-wrap;min-height:88px">Living liturgy ready.</pre>
       </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Live modules: command bus, family cover, non-recursive snapshot, watchdog stats, matrix field, audio field, local state. The original 728 KB chirombe engine file stays preserved and is not executed here.</p>
+        <p class="muted">Live modules: command bus, family cover, non-recursive snapshot, liturgy voice queue, matrix field, audio field. The original 728 KB chirombe engine file stays preserved and is not executed here.</p>
         <div class="grid">
           <div class="stat"><span>BUS</span><strong>READY</strong></div>
-          <div class="stat"><span>PROTECT</span><strong>BOUND</strong></div>
+          <div class="stat"><span>LITURGY</span><strong>WIRED</strong></div>
           <div class="stat"><span>KERNEL FILE</span><strong>HELD</strong></div>
           <div class="stat"><span>REWRITE</span><strong>BLOCKED</strong></div>
         </div>
@@ -81,22 +101,20 @@
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
         <p class="muted">Original system left untouched. This repository is the working duplicate.</p>
-        <p class="muted">Legacy: https://tariromasawi.github.io/chirombe/<br/>Source: https://github.com/tariromasawi/chirombe<br/>Engine artifact: https://github.com/tariromasawi/chirombe/blob/main/chirombe%20engine</p>
+        <p class="muted">Legacy: https://tariromasawi.github.io/chirombe/<br/>Source: https://github.com/tariromasawi/chirombe</p>
       </section>
     </main>
     <aside class="side">
-      <div class="ringbox">
-        <div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div>
-        <div class="core">77</div>
-      </div>
+      <div class="ringbox"><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div><div class="core">77</div></div>
       <div class="stat"><span>UPTIME</span><strong id="stat-uptime">0s</strong></div>
       <p class="muted">Mudzimu Unoyera. Peace, protection, wisdom, unity and strength remain with this protected circle.</p>
     </aside>
   </div>
-  <footer class="dock"><span>CHIROMBE-THRONE · computational cover for the bloodline</span><span>777 · 999 · 333</span></footer>
+  <footer class="dock audio-bar"><span>CHIROMBE-THRONE · computational cover for the bloodline</span><span>777 · 999 · 333</span></footer>
 </div>
 <script src="js/throne-core.js"></script>
 <script src="js/throne-audio.js"></script>
+<script src="js/throne-liturgy.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
