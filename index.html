@@ -13,17 +13,10 @@
 <canvas id="matrix" aria-hidden="true"></canvas>
 <div class="app">
   <header class="topbar">
-    <div class="brand">
-      <div class="seal">Z</div>
-      <div>
-        <div class="eyebrow">Mwari ndi Mwari · CHIROMBE-THRONE 3.0</div>
-        <h1>House Command Matrix</h1>
-      </div>
-    </div>
+    <div class="brand"><div class="seal">Z</div><div><div class="eyebrow">Mwari ndi Mwari · CHIROMBE-THRONE 3.1</div><h1>House Command Matrix</h1></div></div>
     <div class="pills">
       <div class="pill">CORE <b>ONLINE</b></div>
       <div class="pill">MATRIX <b id="stat-matrix">77-99-33</b></div>
-      <div class="pill">COVER <b>ARMED</b></div>
       <div class="pill">AUDIO <b id="audio-state">STANDBY</b></div>
       <div class="pill">WATCH <b id="watch-pill">SLEEP</b></div>
       <div class="pill">KEEP <b id="keep-pill">NONE</b></div>
@@ -47,7 +40,7 @@
     <main class="stage">
       <section id="view-command">
         <h2>Command Centre</h2>
-        <p class="muted">Single-document frontend. Protection is computational cover for the House of Masawi — not a physical guarantee.</p>
+        <p class="muted">Computational cover for the House of Masawi — not a physical guarantee.</p>
         <div class="grid">
           <div class="stat"><span>PROTECTED</span><strong id="stat-family">0</strong></div>
           <div class="stat"><span>NODES</span><strong id="stat-nodes">0</strong></div>
@@ -63,50 +56,20 @@
         </div>
         <div class="log" id="live-log"></div>
       </section>
-      <section id="view-bloodline" hidden>
-        <h2>Bloodline Circle</h2>
-        <p class="muted">Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
-        <div class="family" id="family-list"></div>
-      </section>
+      <section id="view-bloodline" hidden><h2>Bloodline Circle</h2><div class="family" id="family-list"></div></section>
       <section id="view-roster" hidden>
         <h2>Roster Desk</h2>
-        <p class="muted">Add a living or remembered name without editing family.json. Local additions stay in this browser. Ledger names cannot be deleted here.</p>
-        <div class="row">
-          <input id="roster-name" placeholder="Name"/>
-          <select id="roster-gen">
-            <option value="house">house</option>
-            <option value="sibling">sibling</option>
-            <option value="son">son</option>
-            <option value="daughter">daughter</option>
-            <option value="adopted-nephew-son">adopted nephew/son</option>
-            <option value="spouse">spouse</option>
-            <option value="parent">parent</option>
-            <option value="future">future</option>
-          </select>
-          <select id="roster-role">
-            <option value="PROTECTED">PROTECTED</option>
-            <option value="HEIR">HEIR</option>
-            <option value="SIBLING">SIBLING</option>
-            <option value="SPIRIT">SPIRIT</option>
-            <option value="HOUSE">HOUSE</option>
-          </select>
-        </div>
+        <div class="row"><input id="roster-name" placeholder="Name"/><select id="roster-gen"><option value="house">house</option><option value="sibling">sibling</option><option value="son">son</option></select><select id="roster-role"><option value="PROTECTED">PROTECTED</option><option value="HEIR">HEIR</option><option value="SPIRIT">SPIRIT</option></select></div>
         <label class="muted"><input type="checkbox" id="roster-remember"/> Remembered spirit</label>
-        <div class="row">
-          <button class="act primary" id="roster-add">Seat name</button>
-          <button class="act" id="roster-export">Export local extras</button>
-        </div>
-        <p class="muted" id="roster-note">Names added here are computational roster entries.</p>
+        <div class="row"><button class="act primary" id="roster-add">Seat name</button><button class="act" id="roster-export">Export local extras</button></div>
+        <p class="muted" id="roster-note">Local names stay in this browser.</p>
         <div class="stat"><span>ROSTER</span><strong id="roster-count">0</strong></div>
         <div class="family" id="roster-list"></div>
       </section>
       <section id="view-graph" hidden>
         <h2>Lineage Graph</h2>
-        <div class="row">
-          <button class="act primary" id="graph-pulse">Pulse whole House</button>
-          <button class="act" data-cmd="protect family">Run Protection Cycle</button>
-        </div>
-        <p class="muted" id="graph-focus">Tap a name. Cover travels the bloodline edges.</p>
+        <div class="row"><button class="act primary" id="graph-pulse">Pulse whole House</button></div>
+        <p class="muted" id="graph-focus">Tap a name.</p>
         <canvas id="bloodline-graph"></canvas>
       </section>
       <section id="view-audio" hidden>
@@ -116,103 +79,82 @@
           <button class="act" id="liturgy-pause">Pause / Resume</button>
           <button class="act" id="liturgy-next">Next</button>
           <button class="act" id="liturgy-end">End</button>
-          <button class="act" id="audio-start">Tone field only</button>
-          <button class="act" id="audio-stop">Silence tones</button>
+          <button class="act" id="audio-start">Tone field</button>
+          <button class="act" id="audio-stop">Silence</button>
+          <button class="act" id="audio-bloodline">Bloodline session</button>
+          <button class="act" id="audio-diag-btn">Self test</button>
+          <button class="act" id="audio-panic">Emergency stop</button>
         </div>
-        <div class="row">
-          <select id="liturgy-mode-select">
-            <option value="PEACE">PEACE</option>
-            <option value="PROTECTION">PROTECTION</option>
-            <option value="REMEMBRANCE">REMEMBRANCE</option>
-            <option value="FAMILY_BLESSING">FAMILY BLESSING</option>
-            <option value="GROUNDING">GROUNDING</option>
-          </select>
+        <div class="row" id="scene-row">
+          <button class="act" data-scene="PEACE">PEACE</button>
+          <button class="act" data-scene="PROTECTION">PROTECTION</button>
+          <button class="act" data-scene="REMEMBRANCE">REMEMBRANCE</button>
+          <button class="act" data-scene="NIGHT_WATCH">NIGHT</button>
+          <button class="act" data-scene="GROUNDING">GROUND</button>
+          <button class="act" data-scene="STACK">STACK</button>
+          <button class="act" data-scene="SWEEP">SWEEP</button>
         </div>
+        <div class="row"><select id="liturgy-mode-select"><option value="PEACE">PEACE</option><option value="PROTECTION">PROTECTION</option><option value="REMEMBRANCE">REMEMBRANCE</option><option value="FAMILY_BLESSING">FAMILY BLESSING</option><option value="GROUNDING">GROUNDING</option></select></div>
         <div class="grid">
           <div class="stat"><span>LITURGY</span><strong id="liturgy-health">STANDBY</strong></div>
           <div class="stat"><span>QUEUE</span><strong id="liturgy-queue">0</strong></div>
           <div class="stat"><span>SPOKEN</span><strong id="liturgy-done">0</strong></div>
           <div class="stat"><span>VOICE</span><strong id="liturgy-voice">LOCKED</strong></div>
+          <div class="stat"><span>SCENE</span><strong id="tonal-scene">DORMANT</strong></div>
+          <div class="stat"><span>SPECTRUM</span><strong id="tonal-spec">—</strong></div>
+          <div class="stat"><span>COVERED</span><strong id="liturgy-cover">0</strong></div>
         </div>
         <div class="vu"><i id="audio-vu"></i></div>
-        <pre id="liturgy-current" class="member" style="white-space:pre-wrap;min-height:88px">Living liturgy ready.</pre>
+        <pre id="liturgy-current" class="member" style="white-space:pre-wrap;min-height:72px">Living liturgy ready.</pre>
+        <pre id="audio-diag" class="member" style="white-space:pre-wrap;min-height:48px">Hardware self-test not run.</pre>
       </section>
       <section id="view-swarm" hidden>
         <h2>Worker Swarm</h2>
-        <div class="row">
-          <button class="act primary" id="swarm-go">Arm swarm</button>
-          <button class="act" id="swarm-pulse">Pulse once</button>
-          <button class="act" id="swarm-stop">Stand down</button>
-        </div>
+        <div class="row"><button class="act primary" id="swarm-go">Arm swarm</button><button class="act" id="swarm-stop">Stand down</button></div>
         <div class="stat"><span>ONLINE</span><strong id="swarm-count">0 / 12</strong></div>
         <div class="grid" id="swarm-grid"></div>
-        <div class="log" id="swarm-live"></div>
       </section>
       <section id="view-watch" hidden>
         <h2>Night Watch</h2>
-        <div class="row">
-          <button class="act primary" id="watch-go">Arm Night Watch</button>
-          <button class="act" id="watch-stop">Sleep</button>
-          <button class="act" id="watch-reset">Reset</button>
-        </div>
-        <label class="muted"><input type="checkbox" id="watch-whisper"/> Whisper remembrance names</label>
-        <div class="grid">
-          <div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div>
-          <div class="stat"><span>77 PEACE</span><strong id="watch-77">0</strong></div>
-          <div class="stat"><span>99 COVER</span><strong id="watch-99">0</strong></div>
-          <div class="stat"><span>33 MEMORY</span><strong id="watch-33">0</strong></div>
-        </div>
-        <div class="stat"><span>NEXT</span><strong id="watch-next">Standby</strong></div>
+        <div class="row"><button class="act primary" id="watch-go">Arm Night Watch</button><button class="act" id="watch-stop">Sleep</button></div>
+        <div class="grid"><div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div><div class="stat"><span>NEXT</span><strong id="watch-next">Standby</strong></div></div>
         <div class="log" id="watch-live"></div>
       </section>
       <section id="view-keep" hidden>
         <h2>Offline Keep</h2>
-        <div class="row">
-          <button class="act primary" id="keep-go">Arm keep</button>
-          <button class="act" id="keep-drop">Clear keep</button>
-        </div>
-        <div class="grid">
-          <div class="stat"><span>KEEP</span><strong id="keep-state">NO WORKER</strong></div>
-          <div class="stat"><span>NETWORK</span><strong id="keep-net">ONLINE</strong></div>
-          <div class="stat"><span>CACHED</span><strong id="keep-cached">0</strong></div>
-        </div>
-        <p class="muted" id="keep-note">Service worker registers on HTTPS GitHub Pages.</p>
+        <div class="row"><button class="act primary" id="keep-go">Arm keep</button><button class="act" id="keep-drop">Clear keep</button></div>
+        <div class="stat"><span>KEEP</span><strong id="keep-state">NO WORKER</strong></div>
+        <p class="muted" id="keep-note">HTTPS cache only.</p>
       </section>
       <section id="view-seal" hidden>
         <h2>House Seal</h2>
-        <div class="row">
-          <button class="act primary" id="seal-go">Issue seal</button>
-          <button class="act" id="seal-export">Download JSON</button>
-          <button class="act" id="seal-print">Print record</button>
-        </div>
-        <div class="stat"><span>MARK</span><strong id="seal-mark" style="font-size:13px;word-break:break-all">—</strong></div>
-        <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:140px">Issue a seal to freeze this moment of the House.</pre>
+        <div class="row"><button class="act primary" id="seal-go">Issue seal</button><button class="act" id="seal-export">Download JSON</button></div>
+        <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:120px">Issue a seal.</pre>
       </section>
       <section id="view-brief" hidden>
         <h2>House Briefing</h2>
-        <div class="row"><button class="act primary" id="brief-go">Refresh briefing</button></div>
-        <div class="grid">
-          <div class="stat"><span>CAPABILITIES</span><strong id="brief-pass">0 / 8</strong></div>
-          <div class="stat"><span>HOUSE</span><strong id="brief-family">0</strong></div>
-        </div>
+        <button class="act primary" id="brief-go">Refresh briefing</button>
+        <div class="stat"><span>CAPABILITIES</span><strong id="brief-pass">0 / 8</strong></div>
         <div class="grid" id="brief-caps"></div>
-        <pre id="brief-story" class="member" style="white-space:pre-wrap;min-height:160px">House Briefing ready.</pre>
+        <pre id="brief-story" class="member" style="white-space:pre-wrap;min-height:120px">House Briefing ready.</pre>
       </section>
-      <section id="view-engines" hidden><h2>Engines</h2><p class="muted">Working modules on this copy. Original engine file is held, not executed.</p></section>
-      <section id="view-inspect" hidden><h2>Inspect</h2><p class="muted">Live: https://tariromasawi.github.io/chirombe-throne/</p></section>
+      <section id="view-engines" hidden><h2>Engines</h2><p class="muted">CHIROMBE_AUDIO safety, library, tonal, master. Original 515 KB liturgy file is held, not executed.</p></section>
+      <section id="view-inspect" hidden><h2>Inspect</h2><p class="muted">https://tariromasawi.github.io/chirombe-throne/</p></section>
     </main>
     <aside class="side">
       <div class="ringbox"><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div><div class="core">77</div></div>
       <div class="stat"><span>UPTIME</span><strong id="stat-uptime">0s</strong></div>
-      <p class="muted">Mudzimu Unoyera. Peace, protection, wisdom, unity and strength remain with this protected circle.</p>
     </aside>
   </div>
-  <footer class="dock"><span>CHIROMBE-THRONE · computational cover for the bloodline</span><span>777 · 999 · 333</span></footer>
+  <footer class="dock"><span>CHIROMBE-THRONE · computational cover</span><span>777 · 999 · 333</span></footer>
 </div>
 <script src="js/throne-core.js"></script>
 <script src="js/throne-roster.js"></script>
-<script src="js/throne-audio.js"></script>
+<script src="js/throne-audio-safety.js"></script>
+<script src="js/throne-audio-library.js"></script>
+<script src="js/throne-audio-tonal.js"></script>
 <script src="js/throne-liturgy.js"></script>
+<script src="js/throne-audio-master.js"></script>
 <script src="js/throne-swarm.js"></script>
 <script src="js/throne-graph.js"></script>
 <script src="js/throne-watch.js"></script>
