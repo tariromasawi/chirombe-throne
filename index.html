@@ -29,6 +29,7 @@
     <nav>
       <button class="active" data-view="command">Command Centre</button>
       <button data-view="bloodline">Bloodline Circle</button>
+      <button data-view="graph">Lineage Graph</button>
       <button data-view="audio">Audio / Liturgy</button>
       <button data-view="swarm">Worker Swarm</button>
       <button data-view="engines">Engines</button>
@@ -58,9 +59,19 @@
         <p class="muted">Direct line, heirs, royal siblings, and remembered spirits. Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
         <div class="family" id="family-list"></div>
       </section>
+      <section id="view-graph" hidden>
+        <h2>Lineage Graph</h2>
+        <p class="muted">Tariro at the centre. Cover packets travel the House edges. Tap a name to pulse that branch. Map of remembrance and computational cover — not a physical field.</p>
+        <div class="row">
+          <button class="act primary" id="graph-pulse">Pulse whole House</button>
+          <button class="act" data-cmd="protect family">Run Protection Cycle</button>
+        </div>
+        <p class="muted" id="graph-focus">Tap a name. Cover travels the bloodline edges.</p>
+        <canvas id="bloodline-graph"></canvas>
+      </section>
       <section id="view-audio" hidden>
         <h2>Audio / Living Liturgy</h2>
-        <p class="muted">One tap unlocks speech and the 77 / 99 / 33 field. Each prayer finishes before the next starts.</p>
+        <p class="muted">One tap unlocks speech and the 77 / 99 / 33 field.</p>
         <div class="row">
           <button class="act primary" id="liturgy-go">Activate living liturgy</button>
           <button class="act" id="liturgy-pause">Pause / Resume</button>
@@ -91,7 +102,7 @@
       </section>
       <section id="view-swarm" hidden>
         <h2>Worker Swarm</h2>
-        <p class="muted">Twelve named workers from the original Chirombe roster, reconstructed as in-page timers. Browser task loops only — not a 24/7 server farm and not 32 threads per person.</p>
+        <p class="muted">Twelve named workers reconstructed as in-page timers. Not a 24/7 server farm.</p>
         <div class="row">
           <button class="act primary" id="swarm-go">Arm swarm</button>
           <button class="act" id="swarm-pulse">Pulse once</button>
@@ -103,17 +114,11 @@
       </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Live modules: bus, family cover, liturgy voice, worker swarm, matrix field. The original 728 KB chirombe engine file stays preserved and is not executed.</p>
-        <div class="grid">
-          <div class="stat"><span>BUS</span><strong>READY</strong></div>
-          <div class="stat"><span>SWARM</span><strong>WIRED</strong></div>
-          <div class="stat"><span>KERNEL FILE</span><strong>HELD</strong></div>
-          <div class="stat"><span>REWRITE</span><strong>BLOCKED</strong></div>
-        </div>
+        <p class="muted">Bus, family cover, liturgy, swarm, lineage graph. Original 728 KB engine file is held, not executed.</p>
       </section>
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
-        <p class="muted">Original system left untouched. Working copy: https://github.com/tariromasawi/chirombe-throne</p>
+        <p class="muted">Working copy: https://github.com/tariromasawi/chirombe-throne</p>
       </section>
     </main>
     <aside class="side">
@@ -128,6 +133,7 @@
 <script src="js/throne-audio.js"></script>
 <script src="js/throne-liturgy.js"></script>
 <script src="js/throne-swarm.js"></script>
+<script src="js/throne-graph.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
