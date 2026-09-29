@@ -1,0 +1,8 @@
+{
+  "name": "CHIROMBE THRONE",
+  "short_name": "THRONE",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#020307",
+  "theme_color": "#020307"
+}

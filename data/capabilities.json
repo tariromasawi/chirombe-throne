@@ -1,0 +1,7 @@
+{
+  "system": "CHIROMBE-THRONE",
+  "version": "3.0.0",
+  "protocol": "77-99-33",
+  "source": "duplicate-of-tariromasawi/chirombe without concatenated index",
+  "modules": ["command-bus", "family-cover", "protection-core", "watchdog", "audit-chain", "matrix-field", "audio-engine", "worker-swarm", "covenant", "state-store"]
+}
