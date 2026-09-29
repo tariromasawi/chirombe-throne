@@ -3,13 +3,9 @@
   if (g.__THRONE_CORE__) return;
   g.__THRONE_CORE__ = true;
   var KEY = "CHIROMBE_THRONE_V3";
+  var EXTRA_KEY = "CHIROMBE_ROSTER_EXTRA";
   var MATRIX = { a: 77, b: 99, c: 33, seal: "77-99-33", deep: "777-999-333" };
-  var cmds = {};
-  var family = [];
-  var nodes = new Map();
-  var audit = [];
-  var workers = { active: 0, tasks: 0, done: 0, err: 0 };
-  var started = Date.now();
+  var cmds = {}, family = [], nodes = new Map(), audit = [], workers = { active: 0, tasks: 0, done: 0, err: 0 }, started = Date.now();
   function now() { return new Date().toISOString(); }
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
   function save(extra) {
@@ -26,8 +22,7 @@
   }
   function registerCommand(name, handler, meta) { cmds[name] = { handler: handler, meta: meta || {} }; }
   function executeCommand(name, args) {
-    var rec = cmds[name];
-    if (!rec) return { ok: false, command: name, error: "unknown command" };
+    var rec = cmds[name]; if (!rec) return { ok: false, command: name, error: "unknown command" };
     try { return { ok: true, command: name, result: rec.handler(args || {}) }; }
     catch (e) { return { ok: false, command: name, error: String(e && e.message || e) }; }
   }
@@ -38,17 +33,12 @@
   }
   function snapshot() {
     var out = [];
-    nodes.forEach(function (n) {
-      out.push({ id: n.id, label: n.label, resilience: Number(n.resilience.toFixed(3)), vulnerability: Number(n.vulnerability.toFixed(3)), links: n.links.length });
-    });
+    nodes.forEach(function (n) { out.push({ id: n.id, label: n.label, resilience: Number(n.resilience.toFixed(3)), vulnerability: Number(n.vulnerability.toFixed(3)), links: n.links.length }); });
     return { nodes: out, auditLength: audit.length, matrix: MATRIX, armed: true };
   }
   function reinforce() {
     nodes.forEach(function (n) { n.resilience = Math.min(0.99, n.resilience + 0.03); n.vulnerability = Math.max(0.02, n.vulnerability * 0.92); });
-    workers.tasks += 1; workers.done += 1;
-    log("COVER", "Protection cycle complete · " + MATRIX.seal);
-    save({ lastCycle: now() });
-    return snapshot();
+    workers.tasks += 1; workers.done += 1; log("COVER", "Protection cycle complete · " + MATRIX.seal); save({ lastCycle: now() }); return snapshot();
   }
   function renderFamily() {
     var list = document.getElementById("family-list"); var count = document.getElementById("stat-family");
@@ -65,21 +55,50 @@
     var map = { "stat-nodes": String(nodes.size), "stat-workers": String(workers.active), "stat-resilience": String(Math.round(avg * 100)), "stat-uptime": String(Math.floor((Date.now() - started) / 1000)) + "s", "stat-matrix": MATRIX.seal };
     Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) el.textContent = map[id]; });
   }
+  function loadExtras() { try { return JSON.parse(localStorage.getItem(EXTRA_KEY) || "[]"); } catch (e) { return []; } }
+  function saveExtras() {
+    var extras = family.filter(function (m) { return m && m.local; });
+    try { localStorage.setItem(EXTRA_KEY, JSON.stringify(extras)); } catch (e) {}
+    return extras;
+  }
+  function addMember(raw) {
+    if (!raw || !String(raw.name || "").trim()) return { ok: false, error: "name required" };
+    var member = { id: raw.id || ("FAM-X-" + Date.now().toString(36)), name: String(raw.name).trim(), generation: raw.generation || "house", role: raw.role || "PROTECTED", remembrance: !!raw.remembrance, protect: true, local: true };
+    if (family.some(function (m) { return m.id === member.id || (m.name || "").toLowerCase() === member.name.toLowerCase(); })) return { ok: false, error: "already on the roster" };
+    family.push(member); registerNode(member.id, member.name, 0.91); renderFamily(); renderStats(); saveExtras();
+    if (g.CHIROMBE_GRAPH && g.CHIROMBE_GRAPH.rebuild) g.CHIROMBE_GRAPH.rebuild();
+    log("ROSTER", (member.remembrance ? "remembered " : "added ") + member.name);
+    return { ok: true, member: member };
+  }
+  function rememberMember(id) {
+    var m = family.filter(function (x) { return x.id === id; })[0]; if (!m) return { ok: false, error: "not found" };
+    m.remembrance = true; if (m.local) saveExtras(); renderFamily();
+    if (g.CHIROMBE_GRAPH && g.CHIROMBE_GRAPH.rebuild) g.CHIROMBE_GRAPH.rebuild();
+    log("ROSTER", "remembered " + m.name); return { ok: true, member: m };
+  }
+  function dropLocal(id) {
+    var m = family.filter(function (x) { return x.id === id && x.local; })[0];
+    if (!m) return { ok: false, error: "only local additions can be dropped here" };
+    family = family.filter(function (x) { return x.id !== id; }); nodes.delete(id); renderFamily(); renderStats(); saveExtras();
+    if (g.CHIROMBE_GRAPH && g.CHIROMBE_GRAPH.rebuild) g.CHIROMBE_GRAPH.rebuild();
+    log("ROSTER", "dropped local " + m.name); return { ok: true };
+  }
   function wireFamily(members) {
     family = members || [];
     family.forEach(function (m) { registerNode(m.id, m.name, 0.91); });
     var ids = family.map(function (m) { return m.id; });
-    for (var i = 1; i < ids.length; i++) {
-      var a = nodes.get(ids[i - 1]); var b = nodes.get(ids[i]);
-      if (a && b) { a.links.push(b.id); b.links.push(a.id); }
-    }
-    renderFamily(); renderStats();
-    log("BLOODLINE", "House of Masawi loaded · " + family.length + " protected");
+    for (var i = 1; i < ids.length; i++) { var a = nodes.get(ids[i - 1]); var b = nodes.get(ids[i]); if (a && b) { a.links.push(b.id); b.links.push(a.id); } }
+    renderFamily(); renderStats(); log("BLOODLINE", "House of Masawi loaded · " + family.length + " protected");
+    loadExtras().forEach(function (m) { addMember(m); });
+    if (g.CHIROMBE_GRAPH && g.CHIROMBE_GRAPH.rebuild) g.CHIROMBE_GRAPH.rebuild();
   }
-  registerCommand("status", function () { return { system: "CHIROMBE-THRONE", version: "3.0.0", matrix: MATRIX, family: family.length, workers: workers, uptimeMs: Date.now() - started }; });
+  registerCommand("status", function () { return { system: "CHIROMBE-THRONE", version: "3.0.10", matrix: MATRIX, family: family.length, workers: workers, uptimeMs: Date.now() - started }; });
   registerCommand("protect family", reinforce);
   registerCommand("activate system", function () { workers.active = 12; log("BOOT", "Throne command core armed"); renderStats(); return { armed: true }; });
   registerCommand("show lineage", function () { return family.map(function (m) { return m.name + " · " + m.generation; }); });
+  registerCommand("roster.add", function (args) { return addMember(args || {}); });
+  registerCommand("roster.remember", function (args) { return rememberMember(args && args.id); });
+  registerCommand("roster.drop", function (args) { return dropLocal(args && args.id); });
   registerCommand("export state", function () { return save({ exported: now(), snapshot: snapshot() }); });
   registerCommand("selftest", function () {
     var checks = [
@@ -92,7 +111,7 @@
   });
   g.ChirombeBus = { registerCommand: registerCommand, executeCommand: executeCommand, listCommands: function () { return Object.keys(cmds); } };
   g.ZionProtect = { snapshot: snapshot, reinforce: reinforce, nodes: nodes };
-  g.ChirombeThrone = { MATRIX: MATRIX, log: log, loadFamily: wireFamily, getFamily: function () { return family.slice(); }, renderStats: renderStats, workers: workers, save: save, load: load };
+  g.ChirombeThrone = { MATRIX: MATRIX, log: log, loadFamily: wireFamily, getFamily: function () { return family.slice(); }, addMember: addMember, rememberMember: rememberMember, dropLocal: dropLocal, extras: saveExtras, renderStats: renderStats, workers: workers, save: save, load: load };
   g.ChirombeCore = g.ChirombeCore || {};
   Object.defineProperty(g.ChirombeCore, "family", { get: function () { return family; }, configurable: true });
   fetch("./data/family.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
