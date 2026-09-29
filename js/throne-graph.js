@@ -105,6 +105,16 @@
     var el = document.getElementById("graph-focus"); if (!el) return;
     el.textContent = n ? (n.name + " · " + n.gen + " · " + n.role + (n.remembrance ? " · REMEMBERED" : " · PROTECTED")) : "Tap a name. Cover travels the bloodline edges.";
   }
+  function findNamed(name, id) {
+    if (id) { var byId = nodes.filter(function (n) { return n.id === id; })[0]; if (byId) return byId; }
+    var needle = String(name || "").toLowerCase(); if (!needle) return null;
+    return nodes.filter(function (n) { return (n.name || "").toLowerCase().indexOf(needle) !== -1 || needle.indexOf((n.label || "").toLowerCase()) !== -1; })[0] || null;
+  }
+  function pulseName(name, id) {
+    var n = findNamed(name, id);
+    if (n) { selected = n.id; paintMeta(n); emitCover(n.id); return n; }
+    emitCover(); return null;
+  }
   function bind() {
     canvas = document.getElementById("bloodline-graph"); if (!canvas) return;
     ctx = canvas.getContext("2d"); build(); resize();
@@ -120,7 +130,7 @@
     draw();
     if (!nodes.length) setTimeout(function () { build(); layout(); }, 400);
   }
-  g.CHIROMBE_GRAPH = { rebuild: function () { build(); resize(); layout(); }, pulse: function (id) { emitCover(id); }, status: function () { return { nodes: nodes.length, edges: edges.length, packets: packets.length }; } };
+  g.CHIROMBE_GRAPH = { rebuild: function () { build(); resize(); layout(); }, pulse: function (id) { emitCover(id); }, pulseName: pulseName, status: function () { return { nodes: nodes.length, edges: edges.length, packets: packets.length }; } };
   if (g.ChirombeBus) g.ChirombeBus.registerCommand("graph.pulse", function () { emitCover(); }, { subsystem: "graph" });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind); else bind();
 })(window);
