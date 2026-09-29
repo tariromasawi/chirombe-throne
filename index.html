@@ -38,6 +38,7 @@
       <button data-view="swarm">Worker Swarm</button>
       <button data-view="watch">Night Watch</button>
       <button data-view="keep">Offline Keep</button>
+      <button data-view="seal">House Seal</button>
       <button data-view="engines">Engines</button>
       <button data-view="inspect">Inspect / Archive</button>
     </nav>
@@ -137,7 +138,7 @@
       </section>
       <section id="view-keep" hidden>
         <h2>Offline Keep</h2>
-        <p class="muted">A service worker caches this House page in the browser. After one successful HTTPS load, the Throne can open without the net. Local cache only — not a cloud vault.</p>
+        <p class="muted">Local browser cache of the House page. Not a cloud vault.</p>
         <div class="row">
           <button class="act primary" id="keep-go">Arm keep</button>
           <button class="act" id="keep-drop">Clear keep</button>
@@ -150,9 +151,26 @@
         <p class="muted" id="keep-scope">—</p>
         <p class="muted" id="keep-note">Service worker registers on HTTPS GitHub Pages.</p>
       </section>
+      <section id="view-seal" hidden>
+        <h2>House Seal</h2>
+        <p class="muted">One snapshot of roster, watch, liturgy and cover. Marked 77-99-33. Computational record — not a legal signature and not a physical guarantee.</p>
+        <div class="row">
+          <button class="act primary" id="seal-go">Issue seal</button>
+          <button class="act" id="seal-export">Download JSON</button>
+          <button class="act" id="seal-print">Print record</button>
+        </div>
+        <div class="grid">
+          <div class="stat"><span>HOUSE</span><strong id="seal-count">0</strong></div>
+          <div class="stat"><span>WATCH</span><strong id="seal-watch">SLEEP</strong></div>
+          <div class="stat"><span>SPOKEN</span><strong id="seal-spoken">0</strong></div>
+        </div>
+        <div class="stat"><span>ISSUED</span><strong id="seal-when">—</strong></div>
+        <div class="stat"><span>MARK</span><strong id="seal-mark" style="font-size:13px;word-break:break-all">—</strong></div>
+        <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:160px">Issue a seal to freeze this moment of the House.</pre>
+      </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Bus, liturgy, swarm, graph, night watch, offline keep. Original engine file is held, not executed.</p>
+        <p class="muted">Bus, liturgy, swarm, graph, night watch, offline keep, house seal. Original engine file is held, not executed.</p>
       </section>
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
@@ -174,6 +192,7 @@
 <script src="js/throne-graph.js"></script>
 <script src="js/throne-watch.js"></script>
 <script src="js/throne-keep.js"></script>
+<script src="js/throne-seal.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
