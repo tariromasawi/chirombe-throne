@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="theme-color" content="#020307"/>
   <title>CHIROMBE THRONE · 77-99-33</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" href="icon.svg" type="image/svg+xml"/>
   <link rel="stylesheet" href="css/throne.css"/>
 </head>
 <body>
@@ -24,6 +26,7 @@
       <div class="pill">COVER <b>ARMED</b></div>
       <div class="pill">AUDIO <b id="audio-state">STANDBY</b></div>
       <div class="pill">WATCH <b id="watch-pill">SLEEP</b></div>
+      <div class="pill">KEEP <b id="keep-pill">NONE</b></div>
     </div>
   </header>
   <div class="layout">
@@ -34,6 +37,7 @@
       <button data-view="audio">Audio / Liturgy</button>
       <button data-view="swarm">Worker Swarm</button>
       <button data-view="watch">Night Watch</button>
+      <button data-view="keep">Offline Keep</button>
       <button data-view="engines">Engines</button>
       <button data-view="inspect">Inspect / Archive</button>
     </nav>
@@ -97,13 +101,12 @@
           <div class="stat"><span>SPOKEN</span><strong id="liturgy-done">0</strong></div>
           <div class="stat"><span>VOICE</span><strong id="liturgy-voice">LOCKED</strong></div>
         </div>
-        <div class="stat"><span>MODE</span><strong id="liturgy-mode">PEACE · 77 Hz</strong></div>
         <div class="vu"><i id="audio-vu"></i></div>
         <pre id="liturgy-current" class="member" style="white-space:pre-wrap;min-height:88px">Living liturgy ready.</pre>
       </section>
       <section id="view-swarm" hidden>
         <h2>Worker Swarm</h2>
-        <p class="muted">Twelve named workers as in-page timers. Not a 24/7 server farm.</p>
+        <p class="muted">Twelve named workers as in-page timers.</p>
         <div class="row">
           <button class="act primary" id="swarm-go">Arm swarm</button>
           <button class="act" id="swarm-pulse">Pulse once</button>
@@ -115,13 +118,13 @@
       </section>
       <section id="view-watch" hidden>
         <h2>Night Watch</h2>
-        <p class="muted">Quiet cadence while this tab stays open. 33s remembrance, 77s peace, 99s protection. Browsers throttle background tabs. Not a 24/7 server and not a physical shield.</p>
+        <p class="muted">Quiet cadence while this tab stays open. 33 / 77 / 99 seconds.</p>
         <div class="row">
           <button class="act primary" id="watch-go">Arm Night Watch</button>
           <button class="act" id="watch-stop">Sleep</button>
           <button class="act" id="watch-reset">Reset</button>
         </div>
-        <label class="muted"><input type="checkbox" id="watch-whisper"/> Whisper remembrance names (only while this tab is focused)</label>
+        <label class="muted"><input type="checkbox" id="watch-whisper"/> Whisper remembrance names</label>
         <div class="grid">
           <div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div>
           <div class="stat"><span>OPEN</span><strong id="watch-uptime">0s</strong></div>
@@ -132,9 +135,24 @@
         <div class="stat"><span>NEXT</span><strong id="watch-next">Standby</strong></div>
         <div class="log" id="watch-live"></div>
       </section>
+      <section id="view-keep" hidden>
+        <h2>Offline Keep</h2>
+        <p class="muted">A service worker caches this House page in the browser. After one successful HTTPS load, the Throne can open without the net. Local cache only — not a cloud vault.</p>
+        <div class="row">
+          <button class="act primary" id="keep-go">Arm keep</button>
+          <button class="act" id="keep-drop">Clear keep</button>
+        </div>
+        <div class="grid">
+          <div class="stat"><span>KEEP</span><strong id="keep-state">NO WORKER</strong></div>
+          <div class="stat"><span>NETWORK</span><strong id="keep-net">ONLINE</strong></div>
+          <div class="stat"><span>CACHED</span><strong id="keep-cached">0</strong></div>
+        </div>
+        <p class="muted" id="keep-scope">—</p>
+        <p class="muted" id="keep-note">Service worker registers on HTTPS GitHub Pages.</p>
+      </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Bus, family cover, liturgy, swarm, lineage graph, night watch. Original engine file is held, not executed.</p>
+        <p class="muted">Bus, liturgy, swarm, graph, night watch, offline keep. Original engine file is held, not executed.</p>
       </section>
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
@@ -155,6 +173,7 @@
 <script src="js/throne-swarm.js"></script>
 <script src="js/throne-graph.js"></script>
 <script src="js/throne-watch.js"></script>
+<script src="js/throne-keep.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
