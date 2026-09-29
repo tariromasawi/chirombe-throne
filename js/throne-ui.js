@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var views = ["command", "bloodline", "audio", "engines", "inspect"];
+  var views = ["command", "bloodline", "audio", "swarm", "engines", "inspect"];
   function show(name) {
     views.forEach(function (v) {
       var panel = document.getElementById("view-" + v);
@@ -18,6 +18,7 @@
       var out = window.ChirombeBus ? ChirombeBus.executeCommand(name) : { ok: false };
       if (window.ChirombeThrone) ChirombeThrone.log("CMD", name + " · " + (out.ok ? "OK" : out.error || "FAIL"));
       if (name === "protect family" && window.ChirombeAudio) ChirombeAudio.pulseCover();
+      if (name === "activate system" && window.CHIROMBE_SWARM) CHIROMBE_SWARM.start();
       if (name === "export state") {
         var blob = new Blob([JSON.stringify(out.result || out, null, 2)], { type: "application/json" });
         var a = document.createElement("a");
@@ -29,11 +30,7 @@
   });
   var startBtn = document.getElementById("audio-start");
   var stopBtn = document.getElementById("audio-stop");
-  if (startBtn) startBtn.addEventListener("click", function () {
-    if (window.ChirombeAudio) ChirombeAudio.startField();
-  });
-  if (stopBtn) stopBtn.addEventListener("click", function () {
-    if (window.ChirombeAudio) ChirombeAudio.stopAll();
-  });
+  if (startBtn) startBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.startField(); });
+  if (stopBtn) stopBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.stopAll(); });
   show("command");
 })();

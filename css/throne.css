@@ -14,9 +14,9 @@ nav button.active,nav button:hover{border-color:var(--line);background:rgba(109,
 .stage{padding:16px;overflow:auto;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(16px)}
 .stage h2{margin:0 0 8px;font-size:22px}.muted{color:var(--muted);font-size:13px;line-height:1.5}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
-.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(2,6,8,.45)}.stat span{display:block;font-size:11px;letter-spacing:.14em;color:var(--muted)}.stat strong{font-size:28px;color:var(--mint)}
+.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(2,6,8,.45)}.stat span{display:block;font-size:11px;letter-spacing:.14em;color:var(--muted)}.stat strong{font-size:28px;color:var(--mint)}.stat .muted{margin-top:6px;font-size:11px;line-height:1.35}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-button.act{border:1px solid var(--line);background:#071016;color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer}
+button.act,select{border:1px solid var(--line);background:#071016;color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer}
 button.act.primary{background:linear-gradient(180deg,rgba(109,255,178,.18),rgba(109,255,178,.05));color:var(--mint)}
 .family,.log{display:flex;flex-direction:column;gap:8px}
 .member,.log div{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(0,0,0,.25);font-size:13px}.member b{display:block;color:var(--cyan)}
