@@ -1,8 +1,11 @@
 {
   "name": "CHIROMBE THRONE",
   "short_name": "THRONE",
-  "start_url": "./",
+  "description": "House Command Matrix for the House of Masawi. Computational cover only.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#020307",
-  "theme_color": "#020307"
+  "theme_color": "#020307",
+  "icons": [{ "src": "icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" }]
 }
