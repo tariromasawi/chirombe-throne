@@ -33,6 +33,7 @@
     <nav>
       <button class="active" data-view="command">Command Centre</button>
       <button data-view="bloodline">Bloodline Circle</button>
+      <button data-view="roster">Roster Desk</button>
       <button data-view="graph">Lineage Graph</button>
       <button data-view="audio">Audio / Liturgy</button>
       <button data-view="swarm">Worker Swarm</button>
@@ -67,9 +68,40 @@
         <p class="muted">Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
         <div class="family" id="family-list"></div>
       </section>
+      <section id="view-roster" hidden>
+        <h2>Roster Desk</h2>
+        <p class="muted">Add a living or remembered name without editing family.json. Local additions stay in this browser. Ledger names cannot be deleted here.</p>
+        <div class="row">
+          <input id="roster-name" placeholder="Name"/>
+          <select id="roster-gen">
+            <option value="house">house</option>
+            <option value="sibling">sibling</option>
+            <option value="son">son</option>
+            <option value="daughter">daughter</option>
+            <option value="adopted-nephew-son">adopted nephew/son</option>
+            <option value="spouse">spouse</option>
+            <option value="parent">parent</option>
+            <option value="future">future</option>
+          </select>
+          <select id="roster-role">
+            <option value="PROTECTED">PROTECTED</option>
+            <option value="HEIR">HEIR</option>
+            <option value="SIBLING">SIBLING</option>
+            <option value="SPIRIT">SPIRIT</option>
+            <option value="HOUSE">HOUSE</option>
+          </select>
+        </div>
+        <label class="muted"><input type="checkbox" id="roster-remember"/> Remembered spirit</label>
+        <div class="row">
+          <button class="act primary" id="roster-add">Seat name</button>
+          <button class="act" id="roster-export">Export local extras</button>
+        </div>
+        <p class="muted" id="roster-note">Names added here are computational roster entries.</p>
+        <div class="stat"><span>ROSTER</span><strong id="roster-count">0</strong></div>
+        <div class="family" id="roster-list"></div>
+      </section>
       <section id="view-graph" hidden>
         <h2>Lineage Graph</h2>
-        <p class="muted">When liturgy or Night Watch names someone, that node lights and cover runs their edge.</p>
         <div class="row">
           <button class="act primary" id="graph-pulse">Pulse whole House</button>
           <button class="act" data-cmd="protect family">Run Protection Cycle</button>
@@ -79,7 +111,6 @@
       </section>
       <section id="view-audio" hidden>
         <h2>Audio / Living Liturgy</h2>
-        <p class="muted">One tap unlocks speech and the 77 / 99 / 33 field.</p>
         <div class="row">
           <button class="act primary" id="liturgy-go">Activate living liturgy</button>
           <button class="act" id="liturgy-pause">Pause / Resume</button>
@@ -127,7 +158,6 @@
         <label class="muted"><input type="checkbox" id="watch-whisper"/> Whisper remembrance names</label>
         <div class="grid">
           <div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div>
-          <div class="stat"><span>OPEN</span><strong id="watch-uptime">0s</strong></div>
           <div class="stat"><span>77 PEACE</span><strong id="watch-77">0</strong></div>
           <div class="stat"><span>99 COVER</span><strong id="watch-99">0</strong></div>
           <div class="stat"><span>33 MEMORY</span><strong id="watch-33">0</strong></div>
@@ -146,7 +176,6 @@
           <div class="stat"><span>NETWORK</span><strong id="keep-net">ONLINE</strong></div>
           <div class="stat"><span>CACHED</span><strong id="keep-cached">0</strong></div>
         </div>
-        <p class="muted" id="keep-scope">—</p>
         <p class="muted" id="keep-note">Service worker registers on HTTPS GitHub Pages.</p>
       </section>
       <section id="view-seal" hidden>
@@ -156,40 +185,21 @@
           <button class="act" id="seal-export">Download JSON</button>
           <button class="act" id="seal-print">Print record</button>
         </div>
-        <div class="grid">
-          <div class="stat"><span>HOUSE</span><strong id="seal-count">0</strong></div>
-          <div class="stat"><span>WATCH</span><strong id="seal-watch">SLEEP</strong></div>
-          <div class="stat"><span>SPOKEN</span><strong id="seal-spoken">0</strong></div>
-        </div>
-        <div class="stat"><span>ISSUED</span><strong id="seal-when">—</strong></div>
         <div class="stat"><span>MARK</span><strong id="seal-mark" style="font-size:13px;word-break:break-all">—</strong></div>
-        <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:160px">Issue a seal to freeze this moment of the House.</pre>
+        <pre id="seal-body" class="member" style="white-space:pre-wrap;min-height:140px">Issue a seal to freeze this moment of the House.</pre>
       </section>
       <section id="view-brief" hidden>
         <h2>House Briefing</h2>
-        <p class="muted">The Throne explaining itself. Eight phases of the working copy, with live probes. Original Chirombe remains the archive.</p>
         <div class="row"><button class="act primary" id="brief-go">Refresh briefing</button></div>
         <div class="grid">
           <div class="stat"><span>CAPABILITIES</span><strong id="brief-pass">0 / 8</strong></div>
           <div class="stat"><span>HOUSE</span><strong id="brief-family">0</strong></div>
-          <div class="stat"><span>SPOKEN</span><strong id="brief-liturgy">0</strong></div>
-          <div class="stat"><span>SWARM</span><strong id="brief-swarm">0</strong></div>
-          <div class="stat"><span>WATCH</span><strong id="brief-watch">SLEEP</strong></div>
-          <div class="stat"><span>GRAPH</span><strong id="brief-graph">0</strong></div>
-          <div class="stat"><span>KEEP</span><strong id="brief-keep">NONE</strong></div>
-          <div class="stat"><span>SEAL</span><strong id="brief-seal">NONE</strong></div>
         </div>
         <div class="grid" id="brief-caps"></div>
-        <pre id="brief-story" class="member" style="white-space:pre-wrap;min-height:180px">House Briefing ready.</pre>
+        <pre id="brief-story" class="member" style="white-space:pre-wrap;min-height:160px">House Briefing ready.</pre>
       </section>
-      <section id="view-engines" hidden>
-        <h2>Engines</h2>
-        <p class="muted">Working modules on this copy. Original engine file is held, not executed.</p>
-      </section>
-      <section id="view-inspect" hidden>
-        <h2>Inspect</h2>
-        <p class="muted">Archive: https://github.com/tariromasawi/chirombe · Live: https://tariromasawi.github.io/chirombe-throne/</p>
-      </section>
+      <section id="view-engines" hidden><h2>Engines</h2><p class="muted">Working modules on this copy. Original engine file is held, not executed.</p></section>
+      <section id="view-inspect" hidden><h2>Inspect</h2><p class="muted">Live: https://tariromasawi.github.io/chirombe-throne/</p></section>
     </main>
     <aside class="side">
       <div class="ringbox"><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div><div class="core">77</div></div>
@@ -200,6 +210,7 @@
   <footer class="dock"><span>CHIROMBE-THRONE · computational cover for the bloodline</span><span>777 · 999 · 333</span></footer>
 </div>
 <script src="js/throne-core.js"></script>
+<script src="js/throne-roster.js"></script>
 <script src="js/throne-audio.js"></script>
 <script src="js/throne-liturgy.js"></script>
 <script src="js/throne-swarm.js"></script>
