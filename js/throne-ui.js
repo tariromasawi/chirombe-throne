@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var views = ["command", "bloodline", "roster", "graph", "audio", "chamber", "watchcast", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
+  var views = ["command", "bloodline", "roster", "graph", "audio", "chamber", "watchcast", "station", "swarm", "watch", "keep", "seal", "brief", "engines", "inspect"];
   function show(name) {
     views.forEach(function (v) {
       var panel = document.getElementById("view-" + v);
@@ -30,10 +30,6 @@
   var startBtn = document.getElementById("audio-start"); var stopBtn = document.getElementById("audio-stop");
   if (startBtn) startBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.startField(); });
   if (stopBtn) stopBtn.addEventListener("click", function () { if (window.ChirombeAudio) ChirombeAudio.stopAll(); });
-  var blood = document.getElementById("audio-bloodline"); var diagBtn = document.getElementById("audio-diag-btn"); var panic = document.getElementById("audio-panic");
-  if (blood) blood.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.createBloodlineSession(); });
-  if (diagBtn) diagBtn.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.runHardwareSelfTest(); });
-  if (panic) panic.addEventListener("click", function () { if (window.CHIROMBE_AUDIO) CHIROMBE_AUDIO.emergencyStop(); });
   document.querySelectorAll("[data-scene]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var name = btn.getAttribute("data-scene");
