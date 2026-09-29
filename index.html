@@ -23,6 +23,7 @@
       <div class="pill">MATRIX <b id="stat-matrix">77-99-33</b></div>
       <div class="pill">COVER <b>ARMED</b></div>
       <div class="pill">AUDIO <b id="audio-state">STANDBY</b></div>
+      <div class="pill">WATCH <b id="watch-pill">SLEEP</b></div>
     </div>
   </header>
   <div class="layout">
@@ -32,13 +33,14 @@
       <button data-view="graph">Lineage Graph</button>
       <button data-view="audio">Audio / Liturgy</button>
       <button data-view="swarm">Worker Swarm</button>
+      <button data-view="watch">Night Watch</button>
       <button data-view="engines">Engines</button>
       <button data-view="inspect">Inspect / Archive</button>
     </nav>
     <main class="stage">
       <section id="view-command">
         <h2>Command Centre</h2>
-        <p class="muted">Single-document frontend. No glued indexes. Protection is computational cover for the House of Masawi — not a physical guarantee.</p>
+        <p class="muted">Single-document frontend. Protection is computational cover for the House of Masawi — not a physical guarantee.</p>
         <div class="grid">
           <div class="stat"><span>PROTECTED</span><strong id="stat-family">0</strong></div>
           <div class="stat"><span>NODES</span><strong id="stat-nodes">0</strong></div>
@@ -56,12 +58,12 @@
       </section>
       <section id="view-bloodline" hidden>
         <h2>Bloodline Circle</h2>
-        <p class="muted">Direct line, heirs, royal siblings, and remembered spirits. Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
+        <p class="muted">Tarry is son. Kenzi is adopted nephew/son. Family comes first.</p>
         <div class="family" id="family-list"></div>
       </section>
       <section id="view-graph" hidden>
         <h2>Lineage Graph</h2>
-        <p class="muted">Tariro at the centre. Cover packets travel the House edges. Tap a name to pulse that branch. Map of remembrance and computational cover — not a physical field.</p>
+        <p class="muted">When liturgy or Night Watch names someone, that node lights and cover runs their edge.</p>
         <div class="row">
           <button class="act primary" id="graph-pulse">Pulse whole House</button>
           <button class="act" data-cmd="protect family">Run Protection Cycle</button>
@@ -96,13 +98,12 @@
           <div class="stat"><span>VOICE</span><strong id="liturgy-voice">LOCKED</strong></div>
         </div>
         <div class="stat"><span>MODE</span><strong id="liturgy-mode">PEACE · 77 Hz</strong></div>
-        <div class="stat"><span>MATRIX HZ</span><strong id="audio-hz">77 / 99 / 33</strong></div>
         <div class="vu"><i id="audio-vu"></i></div>
         <pre id="liturgy-current" class="member" style="white-space:pre-wrap;min-height:88px">Living liturgy ready.</pre>
       </section>
       <section id="view-swarm" hidden>
         <h2>Worker Swarm</h2>
-        <p class="muted">Twelve named workers reconstructed as in-page timers. Not a 24/7 server farm.</p>
+        <p class="muted">Twelve named workers as in-page timers. Not a 24/7 server farm.</p>
         <div class="row">
           <button class="act primary" id="swarm-go">Arm swarm</button>
           <button class="act" id="swarm-pulse">Pulse once</button>
@@ -112,9 +113,28 @@
         <div class="grid" id="swarm-grid"></div>
         <div class="log" id="swarm-live"></div>
       </section>
+      <section id="view-watch" hidden>
+        <h2>Night Watch</h2>
+        <p class="muted">Quiet cadence while this tab stays open. 33s remembrance, 77s peace, 99s protection. Browsers throttle background tabs. Not a 24/7 server and not a physical shield.</p>
+        <div class="row">
+          <button class="act primary" id="watch-go">Arm Night Watch</button>
+          <button class="act" id="watch-stop">Sleep</button>
+          <button class="act" id="watch-reset">Reset</button>
+        </div>
+        <label class="muted"><input type="checkbox" id="watch-whisper"/> Whisper remembrance names (only while this tab is focused)</label>
+        <div class="grid">
+          <div class="stat"><span>WATCH</span><strong id="watch-state">SLEEP</strong></div>
+          <div class="stat"><span>OPEN</span><strong id="watch-uptime">0s</strong></div>
+          <div class="stat"><span>77 PEACE</span><strong id="watch-77">0</strong></div>
+          <div class="stat"><span>99 COVER</span><strong id="watch-99">0</strong></div>
+          <div class="stat"><span>33 MEMORY</span><strong id="watch-33">0</strong></div>
+        </div>
+        <div class="stat"><span>NEXT</span><strong id="watch-next">Standby</strong></div>
+        <div class="log" id="watch-live"></div>
+      </section>
       <section id="view-engines" hidden>
         <h2>Engines</h2>
-        <p class="muted">Bus, family cover, liturgy, swarm, lineage graph. Original 728 KB engine file is held, not executed.</p>
+        <p class="muted">Bus, family cover, liturgy, swarm, lineage graph, night watch. Original engine file is held, not executed.</p>
       </section>
       <section id="view-inspect" hidden>
         <h2>Inspect</h2>
@@ -134,6 +154,7 @@
 <script src="js/throne-liturgy.js"></script>
 <script src="js/throne-swarm.js"></script>
 <script src="js/throne-graph.js"></script>
+<script src="js/throne-watch.js"></script>
 <script src="js/throne-matrix.js"></script>
 <script src="js/throne-ui.js"></script>
 </body>
