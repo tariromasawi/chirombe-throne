@@ -1,22 +1,11 @@
-const KEEP = "chirombe-throne-keep-v8";
+const KEEP = "chirombe-throne-keep-v9";
 const ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon.svg",
-  "./css/throne.css",
-  "./data/family.json",
-  "./data/capabilities.json",
-  "./js/throne-core.js",
-  "./js/throne-audio.js",
-  "./js/throne-liturgy.js",
-  "./js/throne-swarm.js",
-  "./js/throne-graph.js",
-  "./js/throne-watch.js",
-  "./js/throne-keep.js",
-  "./js/throne-seal.js",
-  "./js/throne-matrix.js",
-  "./js/throne-ui.js"
+  "./", "./index.html", "./manifest.json", "./icon.svg", "./css/throne.css",
+  "./data/family.json", "./data/capabilities.json",
+  "./js/throne-core.js", "./js/throne-audio.js", "./js/throne-liturgy.js",
+  "./js/throne-swarm.js", "./js/throne-graph.js", "./js/throne-watch.js",
+  "./js/throne-keep.js", "./js/throne-seal.js", "./js/throne-brief.js",
+  "./js/throne-matrix.js", "./js/throne-ui.js"
 ];
 self.addEventListener("install", function (event) {
   event.waitUntil(caches.open(KEEP).then(function (cache) { return cache.addAll(ASSETS); }).then(function () { return self.skipWaiting(); }));
